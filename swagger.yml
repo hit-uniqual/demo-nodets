@@ -121,12 +121,12 @@ paths:
                 password:
                   type: string
                   minLength: 8
-                  example: newpassword
+                  example: Abc@321
                 confirmedPassword:
                   description: This field should equals to `password`
                   type: string
                   minLength: 8
-                  example: newpassword
+                  example: Abc@321
               required:
                 - oldPassword
                 - password
@@ -203,12 +203,12 @@ paths:
                   password:
                     type: string
                     minLength: 8
-                    example: newpassword
+                    example: Abc@321
                   confirmedPassword:
                     description: This field should equals to `password`
                     type: string
                     minLength: 8
-                    example: newpassword
+                    example: Abc@321
                 required:
                   - password
         responses:
