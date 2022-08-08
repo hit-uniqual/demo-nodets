@@ -4,6 +4,4 @@ import config from '../../knexfile'
 
 attachPaginate()
 
-const knexConfig = knex(config.development)
-
-export default knexConfig
+export default knex(config.development)

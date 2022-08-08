@@ -28,5 +28,5 @@ export class RegisterUserDto{
     public password: string
 
     @IsNotEmpty()
-    public confirmedPssword: string
+    public confirmedPassword: string
 }

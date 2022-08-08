@@ -67,7 +67,7 @@ paths:
                   type: string
                   minLength: 8
                   example: Abc@123
-                confirmPassword:
+                confirmedPassword:
                   description: This field should equals to `password`
                   type: string
                   minLength: 8
@@ -77,7 +77,7 @@ paths:
                 - firstName
                 - lastName
                 - password
-                - confirmPassword
+                - confirmedPassword
 
       responses:
         '200':
@@ -122,7 +122,7 @@ paths:
                   type: string
                   minLength: 8
                   example: newpassword
-                confirmPassword:
+                confirmedPassword:
                   description: This field should equals to `password`
                   type: string
                   minLength: 8
@@ -130,7 +130,7 @@ paths:
               required:
                 - oldPassword
                 - password
-                - confirmPassword
+                - confirmedPassword
 
       responses:
         '200':
@@ -204,7 +204,7 @@ paths:
                     type: string
                     minLength: 8
                     example: newpassword
-                  confirmPassword:
+                  confirmedPassword:
                     description: This field should equals to `password`
                     type: string
                     minLength: 8

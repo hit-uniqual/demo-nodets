@@ -7,8 +7,8 @@ import dotenv from 'dotenv'
 
 dotenv.config({path: '../../.env'})
 
-const AES_ENC_KEY = Buffer.from('aa5da0d21b01447253ae947ffe81b6e3f48d3d8b25a3f8ff8e3fdabfa8148375', 'hex') // set random encryption key
-const AES_IV = Buffer.from('cf55e913db45b815efcaedd30649c52e', 'hex') // set random initialisation vector
+const AES_ENC_KEY = Buffer.from(process.env.AES_ENC_KEY, 'hex') // set random encryption key
+const AES_IV = Buffer.from(process.env.AES_IV, 'hex') // set random initialisation vector
 
 export const encrypt = (val) => {
   const cipher = createCipheriv('aes-256-cbc', AES_ENC_KEY, AES_IV)
