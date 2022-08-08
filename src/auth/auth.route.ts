@@ -12,6 +12,6 @@ const router: Router = Router()
 
 router.post("/register", validator.validate(RegisterUserDto), asyncWrap(authController.register))
 router.post("/login", validator.validate(LoginUserDto), asyncWrap(authController.login))
-router.get("/change-password", authenticate, asyncWrap(authController.changePassword))
+router.post("/change-password", authenticate, asyncWrap(authController.changePassword))
 
 export const authRoutes: Router = router
