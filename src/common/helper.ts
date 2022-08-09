@@ -29,7 +29,7 @@ export const storeAsSync = (dir, buffer, mimetype) => {
 
   const storageDirExists = existsSync(storageDir)
   if (!storageDirExists) mkdirSync(storageDir)
-
+  
   const exists = existsSync(`${storageDir}/${dir}`)
   if (!exists) mkdirSync(`${storageDir}/${dir}`)
 

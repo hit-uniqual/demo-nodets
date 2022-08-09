@@ -1,0 +1,6 @@
+{
+  "watch": ["src", "swagger.yml"],
+  "ext": "ts,json",
+  "ignore": ["src/**/*.spec.ts", "dist"],
+  "exec": "npx ts-node src/index.ts"
+}

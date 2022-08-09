@@ -4,10 +4,23 @@ import authenticate from '../common/middleware/authenticate'
 import { UserController } from './user.controller'
 
 const userController = new UserController()
-const router:Router = Router()
+const router: Router = Router()
 
-router.put('/update-profile', authenticate, asyncWrap(userController.updateProfile))
+router.put(
+  '/update-profile',
+  authenticate,
+  asyncWrap(userController.updateProfile)
+)
 router.get('/get-profile', authenticate, asyncWrap(userController.getProfile))
-router.get('/get-profile/:id', authenticate, asyncWrap(userController.getProfileById))
+router.get(
+  '/get-profile/:id',
+  authenticate,
+  asyncWrap(userController.getProfileById)
+)
+router.get(
+  '/get-profile-all',
+  authenticate,
+  asyncWrap(userController.getProfileAll)
+)
 
 export const userRoutes: Router = router

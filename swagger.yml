@@ -122,6 +122,22 @@ paths:
               schema:
                 type: object
 
+  /users/get-profile-all:
+    get:
+      description: Get all user details
+      summary: Get all user details
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+
   /auth/change-password:
     post:
       description: Change password
