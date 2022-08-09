@@ -40,4 +40,22 @@ export class UserController {
       data,
     })
   }
+
+  public async editProfile(req: Request, res: Response) {
+    const user = await userService.editProfile(req)
+
+    return res.json({
+      data: {
+        user,
+      },
+    })
+  }
+
+  public async deleteProfile(req: Request, res: Response) {
+    const user = await userService.deleteProfile(req)
+    
+    return res.send({
+      message: 'User has been changed successfully',
+    })
+  }
 }

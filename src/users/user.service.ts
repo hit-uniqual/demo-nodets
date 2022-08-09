@@ -1,5 +1,6 @@
 import { Request } from 'express'
 import knex from '../common/config/database.config'
+import NotFoundException from '../common/exceptions/not-found.exception'
 import { deleteFile, storeAsSync } from '../common/helper'
 
 export class UserService {
@@ -52,5 +53,60 @@ export class UserService {
       })
 
     return users
+  }
+
+  public async editProfile(req: Request) {
+    const id = req.params.id
+    
+    const user = await knex('users').where('id', id).first()
+    if (!user) throw new NotFoundException('Invalid User')
+
+    if (req.files) {
+      if (req.files.profilePicture.mimetype === ('image/png' || 'image/jpg')) {
+        if (req.user.profilePicture) {
+          deleteFile(req.user.profilePicture)
+        }
+
+        await knex('users').update({
+          profilePicture: storeAsSync(
+            'profilePicture',
+            req.files.profilePicture.data,
+            req.files.profilePicture.mimetype
+          ),
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+        }).where('id', id)
+
+        const profileDetail = await knex('users').where('id', id).first()
+
+        return profileDetail
+      }
+    }
+    else {
+      await knex('users').update({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+      }).where('id', id)
+
+      const profileDetail = await knex('users').where('id', id).first()
+
+      return profileDetail
+    }
+    throw new Error('Check your inputs again... Profile picture must be in png/jpg format')
+  }
+
+  public async deleteProfile(req: Request) {
+    const id = req.params.id
+
+    const user = await knex('users').where('id', id).first()
+    if (!user) throw new NotFoundException('Invalid User')
+
+    const getProfile = await knex('users').where('id', id).first()
+
+    if (getProfile && getProfile != null) {
+      deleteFile(getProfile.profilePicture)
+    }
+    
+    await knex('users').where('id', id).del()
   }
 }

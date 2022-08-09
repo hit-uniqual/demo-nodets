@@ -282,3 +282,65 @@ paths:
         '200':
           description: OK
 
+  /users/edit-profile/{id}:
+    put:
+      description: Edit user by id
+      summary: Edit user by id
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id of the user to edit
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                profilePicture:
+                  type: string
+                  format: binary
+                firstName:
+                  type: string
+                  example: lorem
+                lastName:
+                  type: string
+                  example: ipsum
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /users/delete-profile/{id}:
+    delete:
+      description: Delete user by id
+      summary: Delete user by id
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id of the user to delete
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+
