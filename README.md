@@ -19,9 +19,8 @@
     > cp .env.example .env
 
 3. Compile typescript to javascript 
-    > cd src
-    > tsc
-    > cd ..
+    > npm run build
+    > npm run start:dev
 
 4. Start environment
     > npm start
