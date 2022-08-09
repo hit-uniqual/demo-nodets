@@ -17,10 +17,9 @@ const passwordRequirement: PasswordValidationRequirement = {
   mustContainUpperLetter: true,
 }
 
-export class ForgotPasswordNewPasswordDto {
+export class ChangePasswordUserDto {
   @IsNotEmpty()
-  @IsEmail()
-  public email: string
+  public oldPassword: string
 
   @Validate(PasswordValidation, [passwordRequirement])
   @MaxLength(20)

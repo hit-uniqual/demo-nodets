@@ -3,8 +3,6 @@ import dotenv from 'dotenv'
 
 dotenv.config({ path: '../.env' })
 
-// Update with your config settings.
-
 const config: { [key: string]: Knex.Config } = {
   development: {
     client: process.env.DB_CONNECTION || 'mysql',

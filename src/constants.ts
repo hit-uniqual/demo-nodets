@@ -1,22 +1,15 @@
+import dotenv from 'dotenv'
+
+dotenv.config({ path: '../.env' })
+
 export const config = {
-  /**
-   * App port
-   */
   serverPort: process.env.PORT || 3000,
-  /**
-   * App base url
-   * @param {string} path
-   */
   baseUrl(path = null) {
     const host = process.env.APP_URL
     const url = `${host}:${this.serverPort}`
 
     return url + (path ? `/${path}` : '')
   },
-  /**
-   * Api base url
-   * @param {string} path
-   */
   apiBaseUrl(path = null) {
     const url = `${this.baseUrl()}/api/v1`
     return url + (path ? `/${path}` : '')

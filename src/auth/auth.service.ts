@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import knex from 'knex'
+import knex from '../common/config/database.config'
 import passport from 'passport'
 import { decode } from 'jsonwebtoken'
 import moment from 'moment'
@@ -41,7 +41,7 @@ export class AuthService {
     }
   }
 
-  async generateTokenPairs(userId, email:String) {
+  async generateTokenPairs(userId, email: String) {
     const accessToken = await AccessTokensService.createToken(userId, email)
 
     const decodedToken = decode(accessToken)
@@ -58,7 +58,7 @@ export class AuthService {
     }
   }
 
-  async login(req:Request, res:Response, next) {
+  async login(req: Request, res: Response, next) {
     passport.authenticate('local', async (err, user, message) => {
       if (err) return next(err)
 
@@ -68,10 +68,7 @@ export class AuthService {
         })
       }
 
-      const authentication = await this.generateTokenPairs(
-        user.id,
-        user.email
-      )
+      const authentication = await this.generateTokenPairs(user.id, user.email)
 
       return res.json({
         data: {
@@ -81,14 +78,14 @@ export class AuthService {
     })(req, res, next)
   }
 
-  async changePassword(authUser, data) {
-    const user = await knex('users').where('id', authUser.id).first()
+  async changePassword(req: Request) {
+    const user = await knex('users').where('id', req.user.id).first()
 
     if (!user) throw new NotFoundException('User Is invalid')
 
     const hashedPasswordMatch = await new Promise((resolve, reject) => {
-      console.log(data.oldPassword, user.password)
-      bcrypt.compare(data.oldPassword, user.password, (err, response) => {
+      console.log(req.body.oldPassword, user.password)
+      bcrypt.compare(req.body.oldPassword, user.password, (err, response) => {
         if (err) reject(err)
         resolve(response)
       })
@@ -100,7 +97,7 @@ export class AuthService {
       await knex('users')
         .where('id', user.id)
         .update({
-          password: await hash(data.password, 10),
+          password: await hash(req.body.password, 10),
           updatedAt: now,
         })
 

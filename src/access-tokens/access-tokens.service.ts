@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import { randomBytes } from 'crypto'
 import moment from 'moment'
 import { APP_KEY } from '../constants'
-import knexConfig from '../common/config/database.config'
+import knex from '../common/config/database.config'
 
 class AccessTokensService {
   /**
@@ -41,7 +41,7 @@ class AccessTokensService {
    *
    */
   async store(jti, userId, decodedJwtToken) {
-    await knexConfig('access_tokens').insert({
+    await knex('access_tokens').insert({
       id: jti,
       userId,
       expiresAt: moment.unix(decodedJwtToken.exp).format('YYYY-MM-DD'),

@@ -99,6 +99,29 @@ paths:
               schema:
                 type: object
 
+  /users/get-profile/{id}:
+    get:
+      description: Get user details by id
+      summary: Get user details by id
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id of the user to get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+
   /auth/change-password:
     post:
       description: Change password
