@@ -130,6 +130,12 @@ paths:
         - Users
       security:
         - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: number of page of users collection
       responses:
         '200':
           description: OK

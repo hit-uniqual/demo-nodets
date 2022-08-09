@@ -29,7 +29,6 @@ export class UserService {
   }
 
   public async getProfile(req: Request) {
-    console.log(req.user)
     const user = await knex('users').where('id', req.user.id).first()
 
     return user
@@ -43,13 +42,14 @@ export class UserService {
   }
 
   public async getProfileAll(req: Request) {
-    const users = await knex('users').select(
-      'id',
-      'profilePicture',
-      'firstName',
-      'lastName',
-      'email'
-    )
+    const page = req.query.page
+
+    const users = await knex('users')
+      .select('id', 'profilePicture', 'firstName', 'lastName', 'email')
+      .paginate({
+        perPage: 10,
+        currentPage: page,
+      })
 
     return users
   }
