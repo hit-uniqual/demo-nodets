@@ -26,8 +26,7 @@ passport.use(
         .first()
 
       if (
-        !checkToken ||
-        moment.utc().unix() > moment.unix(checkToken.expiresAt)
+        !checkToken || moment.utc() > moment.unix(checkToken.expiresAt)
       ) {
         return done(null, false)
       }
