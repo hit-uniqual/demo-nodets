@@ -1,11 +1,11 @@
+import dotenv from 'dotenv'
 import { createCipheriv, createDecipheriv } from 'crypto'
 import { existsSync, mkdirSync, writeFileSync, unlinkSync } from 'fs'
 import mime from 'mime'
 import { v4 as uuidv4 } from 'uuid'
 import { config } from '../constants'
-import dotenv from 'dotenv'
 
-dotenv.config({ path: '../../.env' })
+dotenv.config()
 
 const AES_ENC_KEY = Buffer.from(process.env.AES_ENC_KEY, 'hex') // set random encryption key
 const AES_IV = Buffer.from(process.env.AES_IV, 'hex') // set random initialisation vector

@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 
-dotenv.config({ path: '../.env' })
+dotenv.config()
 
 export const config = {
   serverPort: process.env.PORT || 3000,
@@ -16,6 +16,7 @@ export const config = {
   },
 }
 
+export const HTTP_OK = 200
 export const HTTP_INTERNAL_SERVER = 500
 export const HTTP_UNPROCESSABLE = 422
 export const HTTP_CONFLICT = 409

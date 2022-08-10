@@ -15,7 +15,7 @@ import routeNotFoundHandler from './common/middleware/route-not-found.handler'
 import './common/passport/local.strategy'
 import './common/passport/jwt.strategy'
 
-dotenv.config({ path: '../.env' })
+dotenv.config()
 
 export class App {
   protected app: express.Application

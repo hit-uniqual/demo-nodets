@@ -8,7 +8,7 @@ import AccessTokensService from '../access-tokens/access-tokens.service'
 import RefreshTokensService from '../refresh-tokens/refresh-tokens.service'
 import NotFoundException from '../common/exceptions/not-found.exception'
 import ConflictHttpException from '../common/exceptions/conflict-request.exception'
-import { HTTP_UNAUTHORIZE } from '../constants'
+import { HTTP_OK, HTTP_UNAUTHORIZE } from '../constants'
 
 export class AuthService {
   public async register(req: Request, res: Response) {
@@ -33,15 +33,11 @@ export class AuthService {
     const authentication = await this.generateTokenPairs(user.id, user.email)
 
     if (user) {
-      res.json({
-        data: {
-          authentication,
-        },
-      })
+      return authentication
     }
   }
 
-  async generateTokenPairs(userId, email: String) {
+  public async generateTokenPairs(userId, email: String) {
     const accessToken = await AccessTokensService.createToken(userId, email)
 
     const decodedToken = decode(accessToken)
@@ -58,7 +54,7 @@ export class AuthService {
     }
   }
 
-  async login(req: Request, res: Response, next) {
+  public async login(req: Request, res: Response, next) {
     passport.authenticate('local', async (err, user, message) => {
       if (err) return next(err)
 
@@ -70,7 +66,9 @@ export class AuthService {
 
       const authentication = await this.generateTokenPairs(user.id, user.email)
 
-      return res.json({
+      res.status(HTTP_OK).json({
+        success: true,
+        message: 'User logged in successfully',
         data: {
           authentication,
         },
@@ -78,7 +76,7 @@ export class AuthService {
     })(req, res, next)
   }
 
-  async changePassword(req: Request) {
+  public async changePassword(req: Request) {
     const user = await knex('users').where('id', req.user.id).first()
 
     if (!user) throw new NotFoundException('User Is invalid')
@@ -103,6 +101,6 @@ export class AuthService {
 
       return true
     }
-    throw new ConflictHttpException('Current password does not match')
+    throw new ConflictHttpException('Old password does not match')
   }
 }
