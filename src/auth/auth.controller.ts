@@ -6,7 +6,7 @@ const authService = new AuthService()
 
 export class AuthController {
   public async register(req: Request, res: Response) {
-    const authentication = await authService.register(req, res)
+    const authentication = await authService.register(req)
 
     res.status(HTTP_OK).json({
       success: true,

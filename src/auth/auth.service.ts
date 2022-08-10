@@ -11,7 +11,7 @@ import ConflictHttpException from '../common/exceptions/conflict-request.excepti
 import { HTTP_OK, HTTP_UNAUTHORIZE } from '../constants'
 
 export class AuthService {
-  public async register(req: Request, res: Response) {
+  public async register(req: Request) {
     const checkUserExist = await knex('users')
       .where('email', req.body.email)
       .first()
@@ -60,6 +60,7 @@ export class AuthService {
 
       if (!user) {
         return res.status(HTTP_UNAUTHORIZE).json({
+          success: false,
           message,
         })
       }

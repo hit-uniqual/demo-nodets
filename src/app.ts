@@ -7,6 +7,7 @@ import swaggerUi from 'swagger-ui-express'
 import YAML from 'yamljs'
 import path from 'path'
 import { config } from './constants'
+import { Cors } from './common/cors';
 import ApiRoutes from './routes/api.routes'
 import WebRoutes from './routes/web.routes'
 import errorHandler from './common/middleware/error.handler'
@@ -22,6 +23,8 @@ export class App {
 
   constructor() {
     this.app = express()
+        
+    Cors.enable(this.app)
 
     const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yml'))
 

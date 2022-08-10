@@ -4,7 +4,7 @@ import { userRoutes } from '../users/user.route'
 import { forgotPasswordRoutes } from '../forgot-password/forgot-password.route'
 
 export default class ApiRoutes {
-  public configure() {
+  public configure(): Router {
     const router = Router()
 
     router.use('/auth', authRoutes)
